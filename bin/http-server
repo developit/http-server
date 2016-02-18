@@ -30,7 +30,7 @@ if (argv.h || argv.help) {
     '  -o [path]    Open browser window after starting the server',
     '  -c           Cache time (max-age) in seconds [3600], e.g. -c10 for 10 seconds.',
     '               To disable caching, use -c-1.',
-    '  -z --gzip    Enable gzip compression',
+    '  -z --gzip    Enable gzip compression [true]',
     '  -U --utc     Use UTC time format in log messages.',
     '',
     '  -P --proxy   Fallback proxy if the request cannot be resolved. e.g.: http://someurl.com',
