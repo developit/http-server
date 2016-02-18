@@ -10,6 +10,7 @@ var colors     = require('colors'),
     argv       = require('optimist')
       .boolean('cors')
       .boolean('proxy-pass')
+      .boolean('gzip')
       .argv;
 
 var ifaces = os.networkInterfaces();
