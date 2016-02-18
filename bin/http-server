@@ -119,7 +119,7 @@ function listen(port) {
   var server = httpServer.createServer(options);
   server.listen(port, host, function () {
     var canonicalHost = host === '0.0.0.0' ? '127.0.0.1' : host,
-        protocol      = ssl ? 'https:' : 'http:';
+        protocol      = ssl ? 'https://' : 'http://';
 
     logger.info(['Starting up http-server, serving '.yellow,
       server.root.cyan,
@@ -127,13 +127,18 @@ function listen(port) {
       '\nAvailable on:'.yellow
     ].join(''));
 
-    Object.keys(ifaces).forEach(function (dev) {
-      ifaces[dev].forEach(function (details) {
-        if (details.family === 'IPv4') {
-          logger.info(('  ' + protocol + details.address + ':' + port.toString()).green);
-        }
+    if (argv.a && host !== '0.0.0.0') {
+      logger.info(('  ' + protocol + canonicalHost + ':' + port.toString()).green);
+    }
+    else {
+      Object.keys(ifaces).forEach(function (dev) {
+        ifaces[dev].forEach(function (details) {
+          if (details.family === 'IPv4') {
+            logger.info(('  ' + protocol + details.address + ':' + port.toString()).green);
+          }
+        });
       });
-    });
+    }
 
     if (typeof proxy === 'string') {
       logger.info('Unhandled requests will be served from: ' + proxy);
